@@ -66,16 +66,17 @@
     <button onclick="deleteCookie()">Delete Cookies</button>
     <button onclick="regenerateCookie()">Add Cookies</button>
     <script>
+
      function deleteCookie() {
   // get the cookie name from the input box
   var cookieName = document.getElementById("cookieName").value;
 
   // save the cookie data to a file or local storage
-  localStorage.setItem(cookieName, JSON.stringify(getCookie(cookieName)));
+  localStorage.setItem(cookieName, JSON.stringify(getCookie(cookieName  )));
 
   // delete the cookie with domain as local
   document.cookie =
-    cookieName + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/";
+    cookieName + "=; max-age=0;path=/";
 }
  
 
@@ -108,9 +109,13 @@
         // get the cookie data from the file or local storage
        
         var cookieData = JSON.parse(localStorage.getItem(cookieName));
+        if(cookieData == null)
+          cookieData = "defaultdata";
 
         // regenerate the cookie with the saved data
         document.cookie = cookieName + "=" + JSON.stringify(cookieData) + ";";
+
+        console.log(document.cookie);
 
         localStorage.removeItem(cookieName);
       }
